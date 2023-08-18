@@ -56,45 +56,54 @@ List<Plant> plants = new List<Plant>()
 string choice = null;
 while (choice != "0")
 {
-    Console.WriteLine(@"Choose an option:
+       InitialOptions();
+
+       choice = Console.ReadLine();
+       if (choice == "0")
+       {
+              Console.WriteLine("Goodbye!");
+       }
+       else if (choice == "1")
+       {
+              ListPlants();
+       }
+       else if (choice == "2")
+       {
+              throw new NotImplementedException("Post a plant to be adopted");
+       }
+       else if (choice == "3")
+       {
+              throw new NotImplementedException("Adopt a plant");
+       }
+       else if (choice == "4")
+       {
+              throw new NotImplementedException("Delist a plant");
+       }
+       else
+       {
+              Console.WriteLine("Choose a number between 0 and 4!");
+       }
+}
+
+void InitialOptions()
+{
+       Console.WriteLine(@"Choose an option:
                         0. Exit
                         1. View All Plants
-                        2. View Plant Details
-                        3. View Latest Plants");
-    choice = Console.ReadLine();
-    if (choice == "0")
-    {
-        Console.WriteLine("Goodbye!");
-    }
-    else if (choice == "1")
-    {
-        ListPlants();
-    }
-    else if (choice == "2")
-    {
-        ViewPlantDetails();
-    }
-    else if (choice == "3")
-    {
-        ViewLatestPlants();
-    }
-}
+                        2. Post a plant to be adopted
+                        3. Adopt a plant
+                        4. Delist a plant");
+};
 
 void ListPlants()
 {
        Console.WriteLine("Plants Inventory:");
-    for (int i = 0; i < plants.Count; i++)
-    {
-        Console.WriteLine($"{i + 1}. {plants[i].Species}");
-    }
+       
+       for (int i = 0; i < plants.Count; i++)
+       {
+              Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} for {plants[i].AskingPrice:C} ");
+
+       }
 
 };
 
-void  ViewPlantDetails(){
-foreach (var plant in plants)
-            {
-                Console.WriteLine($"Plant: {plant.Species}, Light Needs: {plant.LightNeeds}, Price: {plant.AskingPrice:C}, City: {plant.City}, ZIP: {plant.ZIP}, Sold: {plant.Sold}");
-            }
-};
-
-void ViewLatestPlants(){};
