@@ -70,7 +70,7 @@ while (choice != "0")
        }
        else if (choice == "2")
        {
-              throw new NotImplementedException("Post a plant to be adopted");
+              PostAPlant ();
        }
        else if (choice == "3")
        {
@@ -110,3 +110,36 @@ void ListPlants()
 
 };
 
+void PostAPlant ()
+{
+       {
+            Console.Write("Enter plant species: ");
+            string species = Console.ReadLine();
+
+            Console.Write("Enter light needs (1-5): ");
+            int lightNeeds = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter asking price: ");
+            decimal askingPrice = decimal.Parse(Console.ReadLine());
+
+            Console.Write("Enter city: ");
+            string city = Console.ReadLine();
+
+            Console.Write("Enter ZIP: ");
+            int zip = int.Parse(Console.ReadLine());
+
+            Plant newPlant = new Plant
+            {
+                Species = species,
+                LightNeeds = lightNeeds,
+                AskingPrice = askingPrice,
+                City = city,
+                ZIP = zip,
+                Sold = false // New plants are not sold by default
+            };
+
+            plants.Add(newPlant);
+
+            Console.WriteLine("Plant added successfully!");
+        }
+    }
