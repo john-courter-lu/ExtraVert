@@ -1,5 +1,6 @@
 ﻿
-string greeting = @"Welcome to Extra Vert
+string greeting = @">>>
+Welcome to Extra Vert
 Your one-stop shop for used plants";
 
 Console.WriteLine(greeting);
@@ -87,7 +88,8 @@ while (choice != "0")
 
 void InitialOptions()
 {
-       Console.WriteLine(@"Choose an option:
+       Console.WriteLine(@">>>
+                     Choose an option:
                         0. Exit
                         1. View All Plants
                         2. Post a plant to be adopted
@@ -97,11 +99,12 @@ void InitialOptions()
 
 void ListPlants()
 {
-       Console.WriteLine("Plants Inventory:");
-       
+       Console.WriteLine(@">>>
+                     Plants Inventory:");
+
        for (int i = 0; i < plants.Count; i++)
        {
-              Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} for {plants[i].AskingPrice:C} ");
+              Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {(plants[i].Sold ? "was sold" : "is available")} for {plants[i].AskingPrice:C} ");
 
        }
 
