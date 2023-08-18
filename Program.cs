@@ -74,7 +74,7 @@ while (choice != "0")
        }
        else if (choice == "3")
        {
-              throw new NotImplementedException("Adopt a plant");
+              AdoptAPlant ();
        }
        else if (choice == "4")
        {
@@ -143,3 +143,28 @@ void PostAPlant ()
             Console.WriteLine("Plant added successfully!");
         }
     }
+
+void AdoptAPlant ()
+{
+    Console.WriteLine("Plants available for adoption:");
+    for (int i = 0; i < plants.Count; i++)
+    {
+        if (!plants[i].Sold)
+        {
+            Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} for {plants[i].AskingPrice:C}");
+        }
+    }
+
+    Console.Write("Enter the index of the plant you want to adopt: ");
+    int index = int.Parse(Console.ReadLine()) - 1;
+
+    if (index >= 0 && index < plants.Count && !plants[index].Sold)
+    {
+        plants[index].Sold = true;
+        Console.WriteLine($"Congratulations! You have adopted {plants[index].Species}.");
+    }
+    else
+    {
+        Console.WriteLine("Invalid selection. Please choose an available plant.");
+    }
+}
