@@ -58,7 +58,7 @@ string choice = null;
 while (choice != "0")
 {
 
-       Console.WriteLine("\nPress any key to continue/enter/return to the main menu...");
+       Console.WriteLine("\nPress any key to enter the main menu...");
        Console.ReadKey();
        Console.Clear();
 
@@ -89,9 +89,13 @@ while (choice != "0")
        {
               PlantOfTheDay();
        }
+       else if (choice == "6")
+       {
+              SearchForPlants();
+       }
        else
        {
-              Console.WriteLine("Choose a number between 0 and 4!");
+              Console.WriteLine($"Choose a number in the option menu!");
        }
 
 
@@ -106,7 +110,8 @@ void InitialOptions()
                         2. Post a plant to be adopted
                         3. Adopt a plant
                         4. Delist a plant
-                        5. Choose Plant of the Day");
+                        5. Choose Plant of the Day
+                        6. Search for Plants by Light Needs");
 };
 
 void ListPlants()
@@ -229,4 +234,41 @@ void PlantOfTheDay()
        Console.WriteLine($"Price: {selectedPlant.AskingPrice:C}");
 
 
+}
+
+
+void SearchForPlants()
+{
+    Console.Clear();
+
+    Console.Write("Enter the maximum light needs (1-5): ");
+    int maxLightNeeds = int.Parse(Console.ReadLine());
+
+    List<Plant> matchingPlants = new List<Plant>();
+
+    foreach (Plant plant in plants)
+    {
+        if (plant.LightNeeds <= maxLightNeeds)
+        {
+            matchingPlants.Add(plant);
+        }
+    }
+
+    if (matchingPlants.Count == 0)
+    {
+        Console.WriteLine("No plants match the specified light needs.");
+    }
+    else
+    {
+        Console.WriteLine("Plants matching the specified light needs:");
+        for (int i = 0; i < matchingPlants.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {matchingPlants[i].Species} in {matchingPlants[i].City} for {matchingPlants[i].AskingPrice:C}");
+            Console.WriteLine($"Light Needs: {matchingPlants[i].LightNeeds}");
+        }
+    }
+
+    Console.WriteLine("\nPress any key to continue...");
+    Console.ReadKey();
+    Console.Clear();
 }
