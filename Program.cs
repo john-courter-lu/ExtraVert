@@ -25,7 +25,7 @@ List<Plant> plants = new List<Plant>()
        City = "New York",
        ZIP = 10001,
        Sold = true,
-       AvailableUntil = DateTime.Now.AddDays(7) 
+       AvailableUntil = new DateTime(2023,12,3)
        },
        new Plant
        {
@@ -35,7 +35,7 @@ List<Plant> plants = new List<Plant>()
        City = "Chicago",
        ZIP = 60601,
        Sold = false,
-       AvailableUntil = DateTime.Now.AddDays(7) 
+       AvailableUntil = DateTime.Now.AddDays(7)
        },
        new Plant
        {
@@ -45,7 +45,7 @@ List<Plant> plants = new List<Plant>()
        City = "San Francisco",
        ZIP = 94101,
        Sold = true,
-       AvailableUntil = DateTime.Now.AddDays(7) 
+       AvailableUntil = DateTime.Now.AddMonths(3)
        },
        new Plant
        {
@@ -55,7 +55,7 @@ List<Plant> plants = new List<Plant>()
        City = "Miami",
        ZIP = 33101,
        Sold = false,
-       AvailableUntil = DateTime.Now.AddDays(7) 
+       AvailableUntil = DateTime.Now.AddYears(1)
        }
 };
 
@@ -198,16 +198,17 @@ void AdoptAPlant()
        Console.WriteLine("Plants available for adoption:");
        for (int i = 0; i < plants.Count; i++)
        {
-              if (!plants[i].Sold)
+              if (!plants[i].Sold && plants[i].AvailableUntil > DateTime.Now)
               {
                      Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} for {plants[i].AskingPrice:C}");
+                     Console.WriteLine($"Available Until: {plants[i].AvailableUntil.ToShortDateString()}");
               }
        }
 
        Console.Write("Enter the index of the plant you want to adopt: ");
        int index = int.Parse(Console.ReadLine()) - 1;
 
-       if (index >= 0 && index < plants.Count && !plants[index].Sold)
+       if (index >= 0 && index < plants.Count)
        {
               plants[index].Sold = true;
               Console.WriteLine($"Congratulations! You have adopted {plants[index].Species}.");
@@ -216,6 +217,10 @@ void AdoptAPlant()
        {
               Console.WriteLine("Invalid selection. Please choose an available plant.");
        }
+
+       Console.WriteLine("\nPress any key to continue...");
+       Console.ReadKey();
+       Console.Clear();
 }
 
 void DelistAPlant()
