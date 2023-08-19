@@ -70,15 +70,15 @@ while (choice != "0")
        }
        else if (choice == "2")
        {
-              PostAPlant ();
+              PostAPlant();
        }
        else if (choice == "3")
        {
-              AdoptAPlant ();
+              AdoptAPlant();
        }
        else if (choice == "4")
        {
-              throw new NotImplementedException("Delist a plant");
+              DelistAPlant();
        }
        else
        {
@@ -110,61 +110,84 @@ void ListPlants()
 
 };
 
-void PostAPlant ()
+void PostAPlant()
 {
        {
-            Console.Write("Enter plant species: ");
-            string species = Console.ReadLine();
+              Console.Write("Enter plant species: ");
+              string species = Console.ReadLine();
 
-            Console.Write("Enter light needs (1-5): ");
-            int lightNeeds = int.Parse(Console.ReadLine());
+              Console.Write("Enter light needs (1-5): ");
+              int lightNeeds = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter asking price: ");
-            decimal askingPrice = decimal.Parse(Console.ReadLine());
+              Console.Write("Enter asking price: ");
+              decimal askingPrice = decimal.Parse(Console.ReadLine());
 
-            Console.Write("Enter city: ");
-            string city = Console.ReadLine();
+              Console.Write("Enter city: ");
+              string city = Console.ReadLine();
 
-            Console.Write("Enter ZIP: ");
-            int zip = int.Parse(Console.ReadLine());
+              Console.Write("Enter ZIP: ");
+              int zip = int.Parse(Console.ReadLine());
 
-            Plant newPlant = new Plant
-            {
-                Species = species,
-                LightNeeds = lightNeeds,
-                AskingPrice = askingPrice,
-                City = city,
-                ZIP = zip,
-                Sold = false // New plants are not sold by default
-            };
+              Plant newPlant = new Plant
+              {
+                     Species = species,
+                     LightNeeds = lightNeeds,
+                     AskingPrice = askingPrice,
+                     City = city,
+                     ZIP = zip,
+                     Sold = false // New plants are not sold by default
+              };
 
-            plants.Add(newPlant);
+              plants.Add(newPlant);
 
-            Console.WriteLine("Plant added successfully!");
-        }
-    }
+              Console.WriteLine("Plant added successfully!");
+       }
+}
 
-void AdoptAPlant ()
+void AdoptAPlant()
 {
-    Console.WriteLine("Plants available for adoption:");
-    for (int i = 0; i < plants.Count; i++)
-    {
-        if (!plants[i].Sold)
-        {
-            Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} for {plants[i].AskingPrice:C}");
-        }
-    }
+       Console.WriteLine("Plants available for adoption:");
+       for (int i = 0; i < plants.Count; i++)
+       {
+              if (!plants[i].Sold)
+              {
+                     Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} for {plants[i].AskingPrice:C}");
+              }
+       }
 
-    Console.Write("Enter the index of the plant you want to adopt: ");
-    int index = int.Parse(Console.ReadLine()) - 1;
+       Console.Write("Enter the index of the plant you want to adopt: ");
+       int index = int.Parse(Console.ReadLine()) - 1;
 
-    if (index >= 0 && index < plants.Count && !plants[index].Sold)
-    {
-        plants[index].Sold = true;
-        Console.WriteLine($"Congratulations! You have adopted {plants[index].Species}.");
-    }
-    else
-    {
-        Console.WriteLine("Invalid selection. Please choose an available plant.");
-    }
+       if (index >= 0 && index < plants.Count && !plants[index].Sold)
+       {
+              plants[index].Sold = true;
+              Console.WriteLine($"Congratulations! You have adopted {plants[index].Species}.");
+       }
+       else
+       {
+              Console.WriteLine("Invalid selection. Please choose an available plant.");
+       }
+}
+
+void DelistAPlant()
+{
+       Console.WriteLine("Plants available for delisting:");
+       for (int i = 0; i < plants.Count; i++)
+       {
+              Console.WriteLine($"{i + 1}. {plants[i].Species} in {plants[i].City} {(plants[i].Sold ? " (Sold)" : "")} for {plants[i].AskingPrice:C}");
+       }
+
+       Console.Write("Enter the index of the plant you want to delist: ");
+       int index = int.Parse(Console.ReadLine()) - 1;
+
+       if (index >= 0 && index < plants.Count)
+       {
+              Plant plantToRemove = plants[index];
+              plants.RemoveAt(index);
+              Console.WriteLine($"{plantToRemove.Species} has been delisted.");
+       }
+       else
+       {
+              Console.WriteLine("Invalid selection. Please choose a valid plant to delist.");
+       }
 }
