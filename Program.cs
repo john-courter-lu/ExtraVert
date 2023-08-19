@@ -57,6 +57,11 @@ List<Plant> plants = new List<Plant>()
 string choice = null;
 while (choice != "0")
 {
+
+       Console.WriteLine("\nPress any key to enter the main menu...");
+       Console.ReadKey();
+       Console.Clear();
+
        InitialOptions();
 
        choice = Console.ReadLine();
@@ -80,10 +85,16 @@ while (choice != "0")
        {
               DelistAPlant();
        }
+       else if (choice == "5")
+       {
+              PlantOfTheDay();
+       }
        else
        {
               Console.WriteLine("Choose a number between 0 and 4!");
        }
+
+
 }
 
 void InitialOptions()
@@ -94,7 +105,8 @@ void InitialOptions()
                         1. View All Plants
                         2. Post a plant to be adopted
                         3. Adopt a plant
-                        4. Delist a plant");
+                        4. Delist a plant
+                        5. Choose Plant of the Day");
 };
 
 void ListPlants()
@@ -190,4 +202,20 @@ void DelistAPlant()
        {
               Console.WriteLine("Invalid selection. Please choose a valid plant to delist.");
        }
+}
+
+void PlantOfTheDay()
+{
+       Random random = new Random();
+       int randomIndex = random.Next(0, plants.Count);
+
+       Plant selectedPlant = plants[randomIndex];
+
+       Console.WriteLine("Plant of the Day:");
+       Console.WriteLine($"Species: {selectedPlant.Species}");
+       Console.WriteLine($"Location: {selectedPlant.City}");
+       Console.WriteLine($"Light Needs: {selectedPlant.LightNeeds}");
+       Console.WriteLine($"Price: {selectedPlant.AskingPrice:C}");
+
+
 }
