@@ -58,13 +58,13 @@ string choice = null;
 while (choice != "0")
 {
 
-       Console.WriteLine("\nPress any key to enter the main menu...");
+       Console.WriteLine("\nPress any key to continue/enter/return to the main menu...");
        Console.ReadKey();
        Console.Clear();
 
        InitialOptions();
 
-       choice = Console.ReadLine();
+       choice = Console.ReadLine().Trim();
        if (choice == "0")
        {
               Console.WriteLine("Goodbye!");
@@ -207,9 +207,20 @@ void DelistAPlant()
 void PlantOfTheDay()
 {
        Random random = new Random();
-       int randomIndex = random.Next(0, plants.Count);
+       int randomIndex;
 
-       Plant selectedPlant = plants[randomIndex];
+       Plant selectedPlant = null;
+
+       while (selectedPlant == null)
+       {
+              randomIndex = random.Next(0, plants.Count);
+              Plant potentialPlant = plants[randomIndex];
+
+              if (!potentialPlant.Sold)
+              {
+                     selectedPlant = potentialPlant;
+              }
+       }
 
        Console.WriteLine("Plant of the Day:");
        Console.WriteLine($"Species: {selectedPlant.Species}");
