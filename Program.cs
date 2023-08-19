@@ -129,37 +129,64 @@ void ListPlants()
 
 void PostAPlant()
 {
+       Console.Clear();
+
+       Console.Write("Enter plant species: ");
+       string species = Console.ReadLine();
+
+       Console.Write("Enter light needs (1-5): ");
+       int lightNeeds = int.Parse(Console.ReadLine());
+
+       Console.Write("Enter asking price: ");
+       decimal askingPrice = decimal.Parse(Console.ReadLine());
+
+       Console.Write("Enter city: ");
+       string city = Console.ReadLine();
+
+       Console.Write("Enter ZIP: ");
+       int zip = int.Parse(Console.ReadLine());
+
+       Console.WriteLine("Enter the expiration date (Year, Month, Day):");
+       Console.Write("Year: ");
+       int year = int.Parse(Console.ReadLine());
+
+       Console.Write("Month: ");
+       int month = int.Parse(Console.ReadLine());
+
+       Console.Write("Day: ");
+       int day = int.Parse(Console.ReadLine());
+
+       DateTime expirationDate = new DateTime(year, month, day);
+
+       Plant newPlant = new Plant
        {
-              Console.Write("Enter plant species: ");
-              string species = Console.ReadLine();
+              Species = species,
+              LightNeeds = lightNeeds,
+              AskingPrice = askingPrice,
+              City = city,
+              ZIP = zip,
+              Sold = false,
+              AvailableUntil = expirationDate
+       };
 
-              Console.Write("Enter light needs (1-5): ");
-              int lightNeeds = int.Parse(Console.ReadLine());
+       plants.Add(newPlant);
 
-              Console.Write("Enter asking price: ");
-              decimal askingPrice = decimal.Parse(Console.ReadLine());
+       Console.Clear();
+       Console.WriteLine("Plant added successfully!");
 
-              Console.Write("Enter city: ");
-              string city = Console.ReadLine();
+       Console.WriteLine("New Plant Details:");
+       Console.WriteLine($"Species: {newPlant.Species}");
+       Console.WriteLine($"Light Needs: {newPlant.LightNeeds}");
+       Console.WriteLine($"Asking Price: {newPlant.AskingPrice:C}");
+       Console.WriteLine($"City: {newPlant.City}");
+       Console.WriteLine($"ZIP: {newPlant.ZIP}");
+       Console.WriteLine($"Available Until: {newPlant.AvailableUntil.ToShortDateString()}");
 
-              Console.Write("Enter ZIP: ");
-              int zip = int.Parse(Console.ReadLine());
-
-              Plant newPlant = new Plant
-              {
-                     Species = species,
-                     LightNeeds = lightNeeds,
-                     AskingPrice = askingPrice,
-                     City = city,
-                     ZIP = zip,
-                     Sold = false // New plants are not sold by default
-              };
-
-              plants.Add(newPlant);
-
-              Console.WriteLine("Plant added successfully!");
-       }
+       Console.WriteLine("\nPress any key to continue...");
+       Console.ReadKey();
+       Console.Clear();
 }
+
 
 void AdoptAPlant()
 {
@@ -239,36 +266,36 @@ void PlantOfTheDay()
 
 void SearchForPlants()
 {
-    Console.Clear();
+       Console.Clear();
 
-    Console.Write("Enter the maximum light needs (1-5): ");
-    int maxLightNeeds = int.Parse(Console.ReadLine());
+       Console.Write("Enter the maximum light needs (1-5): ");
+       int maxLightNeeds = int.Parse(Console.ReadLine());
 
-    List<Plant> matchingPlants = new List<Plant>();
+       List<Plant> matchingPlants = new List<Plant>();
 
-    foreach (Plant plant in plants)
-    {
-        if (plant.LightNeeds <= maxLightNeeds)
-        {
-            matchingPlants.Add(plant);
-        }
-    }
+       foreach (Plant plant in plants)
+       {
+              if (plant.LightNeeds <= maxLightNeeds)
+              {
+                     matchingPlants.Add(plant);
+              }
+       }
 
-    if (matchingPlants.Count == 0)
-    {
-        Console.WriteLine("No plants match the specified light needs.");
-    }
-    else
-    {
-        Console.WriteLine("Plants matching the specified light needs:");
-        for (int i = 0; i < matchingPlants.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {matchingPlants[i].Species} in {matchingPlants[i].City} for {matchingPlants[i].AskingPrice:C}");
-            Console.WriteLine($"Light Needs: {matchingPlants[i].LightNeeds}");
-        }
-    }
+       if (matchingPlants.Count == 0)
+       {
+              Console.WriteLine("No plants match the specified light needs.");
+       }
+       else
+       {
+              Console.WriteLine("Plants matching the specified light needs:");
+              for (int i = 0; i < matchingPlants.Count; i++)
+              {
+                     Console.WriteLine($"{i + 1}. {matchingPlants[i].Species} in {matchingPlants[i].City} for {matchingPlants[i].AskingPrice:C}");
+                     Console.WriteLine($"Light Needs: {matchingPlants[i].LightNeeds}");
+              }
+       }
 
-    Console.WriteLine("\nPress any key to continue...");
-    Console.ReadKey();
-    Console.Clear();
+       Console.WriteLine("\nPress any key to continue...");
+       Console.ReadKey();
+       Console.Clear();
 }
