@@ -14,7 +14,8 @@ List<Plant> plants = new List<Plant>()
        AskingPrice = 12.99M,
        City = "Los Angeles",
        ZIP = 90001,
-       Sold = false
+       Sold = false,
+       AvailableUntil = new DateTime(2023,5,3)
        },
        new Plant
        {
@@ -23,7 +24,8 @@ List<Plant> plants = new List<Plant>()
        AskingPrice = 8.49M,
        City = "New York",
        ZIP = 10001,
-       Sold = true
+       Sold = true,
+       AvailableUntil = DateTime.Now.AddDays(7) 
        },
        new Plant
        {
@@ -32,7 +34,8 @@ List<Plant> plants = new List<Plant>()
        AskingPrice = 9.99M,
        City = "Chicago",
        ZIP = 60601,
-       Sold = false
+       Sold = false,
+       AvailableUntil = DateTime.Now.AddDays(7) 
        },
        new Plant
        {
@@ -41,7 +44,8 @@ List<Plant> plants = new List<Plant>()
        AskingPrice = 6.99M,
        City = "San Francisco",
        ZIP = 94101,
-       Sold = true
+       Sold = true,
+       AvailableUntil = DateTime.Now.AddDays(7) 
        },
        new Plant
        {
@@ -50,7 +54,8 @@ List<Plant> plants = new List<Plant>()
        AskingPrice = 19.99M,
        City = "Miami",
        ZIP = 33101,
-       Sold = false
+       Sold = false,
+       AvailableUntil = DateTime.Now.AddDays(7) 
        }
 };
 
