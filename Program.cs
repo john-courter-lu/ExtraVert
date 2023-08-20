@@ -98,6 +98,10 @@ while (choice != "0")
        {
               SearchForPlants();
        }
+       else if (choice == "7")
+       {
+              ViewAppStats();
+       }
        else
        {
               Console.WriteLine($"Choose a number in the option menu!");
@@ -116,7 +120,8 @@ void InitialOptions()
                         3. Adopt a plant
                         4. Delist a plant
                         5. Choose Plant of the Day
-                        6. Search for Plants by Light Needs");
+                        6. Search for Plants by Light Needs
+                        7. View app statistics");
 };
 
 void ListPlants()
@@ -308,4 +313,104 @@ void SearchForPlants()
        Console.WriteLine("\nPress any key to continue...");
        Console.ReadKey();
        Console.Clear();
+}
+
+/* uses LINQ methods like Min, First, Max, Average, and Count to retrieve the required values from the plants List. 
+
+void ViewAppStats()
+{
+       Console.Clear();
+
+       if (plants.Count == 0)
+       {
+              Console.WriteLine("No statistics available as there are no plants.");
+       }
+       else
+       {
+              decimal lowestPrice = plants.Min(plant => plant.AskingPrice);
+              string lowestPricePlantName = plants.First(plant => plant.AskingPrice == lowestPrice).Species;
+
+              int availablePlantsCount = plants.Count(plant => !plant.Sold && plant.AvailableUntil > DateTime.Now);
+
+              int highestLightNeeds = plants.Max(plant => plant.LightNeeds);
+              string highestLightNeedsPlantName = plants.First(plant => plant.LightNeeds == highestLightNeeds).Species;
+
+              double averageLightNeeds = plants.Average(plant => plant.LightNeeds);
+
+              double percentageAdopted = (double)plants.Count(plant => plant.Sold) / plants.Count * 100;
+
+              Console.WriteLine("Application Statistics:");
+              Console.WriteLine($"Lowest price plant name: {lowestPricePlantName}");
+              Console.WriteLine($"Number of Plants Available: {availablePlantsCount}");
+              Console.WriteLine($"Name of plant with highest light needs: {highestLightNeedsPlantName}");
+              Console.WriteLine($"Average light needs: {averageLightNeeds:F2}");
+              Console.WriteLine($"Percentage of plants adopted: {percentageAdopted:F2}%");
+       }
+
+       Console.WriteLine("\nPress any key to continue...");
+       Console.ReadKey();
+       Console.Clear();
+} 
+
+*/
+
+void ViewAppStats()
+{
+    Console.Clear();
+
+    if (plants.Count == 0)
+    {
+        Console.WriteLine("No statistics available as there are no plants.");
+    }
+    else
+    {
+        decimal lowestPrice = decimal.MaxValue;
+        string lowestPricePlantName = "";
+        int availablePlantsCount = 0;
+        int highestLightNeeds = 0;
+        string highestLightNeedsPlantName = "";
+        int totalLightNeeds = 0;
+        int soldPlantsCount = 0;
+
+        foreach (Plant plant in plants)
+        {
+            if (plant.AskingPrice < lowestPrice)
+            {
+                lowestPrice = plant.AskingPrice;
+                lowestPricePlantName = plant.Species;
+            }
+
+            if (!plant.Sold && plant.AvailableUntil > DateTime.Now)
+            {
+                availablePlantsCount++;
+            }
+
+            if (plant.LightNeeds > highestLightNeeds)
+            {
+                highestLightNeeds = plant.LightNeeds;
+                highestLightNeedsPlantName = plant.Species;
+            }
+
+            totalLightNeeds += plant.LightNeeds;
+
+            if (plant.Sold)
+            {
+                soldPlantsCount++;
+            }
+        }
+
+        double averageLightNeeds = (double)totalLightNeeds / plants.Count;
+        double percentageAdopted = (double)soldPlantsCount / plants.Count * 100;
+
+        Console.WriteLine("Application Statistics:");
+        Console.WriteLine($"Lowest price plant name: {lowestPricePlantName}");
+        Console.WriteLine($"Number of Plants Available: {availablePlantsCount}");
+        Console.WriteLine($"Name of plant with highest light needs: {highestLightNeedsPlantName}");
+        Console.WriteLine($"Average light needs: {averageLightNeeds:F2}");
+        Console.WriteLine($"Percentage of plants adopted: {percentageAdopted:F2}%");
+    }
+
+    Console.WriteLine("\nPress any key to continue...");
+    Console.ReadKey();
+    Console.Clear();
 }
