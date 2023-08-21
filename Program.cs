@@ -256,15 +256,11 @@ void PostAPlant()
         };
 
         plants.Add(newPlant);
-
+        Console.Clear();
         Console.WriteLine("Plant added successfully!");
         Console.WriteLine("New Plant Details:");
-        Console.WriteLine($"Species: {newPlant.Species}");
-        Console.WriteLine($"Light Needs: {newPlant.LightNeeds}");
-        Console.WriteLine($"Asking Price: {newPlant.AskingPrice:C}");
-        Console.WriteLine($"City: {newPlant.City}");
-        Console.WriteLine($"ZIP: {newPlant.ZIP}");
-        Console.WriteLine($"Available Until: {newPlant.AvailableUntil.ToShortDateString()}");
+        Console.WriteLine(PlantDetails(newPlant));
+     
     }
     catch (Exception ex)
     {
@@ -349,10 +345,8 @@ void PlantOfTheDay()
        }
 
        Console.WriteLine("Plant of the Day:");
-       Console.WriteLine($"Species: {selectedPlant.Species}");
-       Console.WriteLine($"Location: {selectedPlant.City}");
-       Console.WriteLine($"Light Needs: {selectedPlant.LightNeeds}");
-       Console.WriteLine($"Price: {selectedPlant.AskingPrice:C}");
+       Console.WriteLine(PlantDetails(selectedPlant));
+     
 
 
 }
@@ -492,4 +486,18 @@ void ViewAppStats()
     Console.WriteLine("\nPress any key to continue...");
     Console.ReadKey();
     Console.Clear();
+}
+
+
+string PlantDetails(Plant plant)
+{
+    string plantString = $"Species: {plant.Species}\n" +
+                         $"Light Needs: {plant.LightNeeds}\n" +
+                         $"Asking Price: {plant.AskingPrice:C}\n" +
+                         $"City: {plant.City}\n" +
+                         $"ZIP: {plant.ZIP}\n" +
+                         $"Available Until: {plant.AvailableUntil.ToShortDateString()}\n" +
+                         $"Status: {(plant.Sold ? "Sold" : "Available")}\n";
+
+    return plantString;
 }
