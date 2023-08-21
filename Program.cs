@@ -139,62 +139,141 @@ void ListPlants()
 
 void PostAPlant()
 {
-       Console.Clear();
+    Console.Clear();
 
-       Console.Write("Enter plant species: ");
-       string species = Console.ReadLine();
+    Console.Write("Enter plant species: ");
+    string species = Console.ReadLine();
 
-       Console.Write("Enter light needs (1-5): ");
-       int lightNeeds = int.Parse(Console.ReadLine());
+    int? lightNeeds = null;
+    while (lightNeeds == null)
+    {
+        Console.Write("Enter light needs (1-5): ");
+        try
+        {
+            int input = int.Parse(Console.ReadLine());
 
-       Console.Write("Enter asking price: ");
-       decimal askingPrice = decimal.Parse(Console.ReadLine());
+            if (input >= 1 && input <= 5)
+            {
+                lightNeeds = input;
+            }
+            else
+            {
+                Console.WriteLine("Invalid light needs input. Please enter a number between 1 and 5.");
+            }
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input format. Please enter a valid number.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
 
-       Console.Write("Enter city: ");
-       string city = Console.ReadLine();
+    decimal? askingPrice = null;
+    while (askingPrice == null)
+    {
+        Console.Write("Enter asking price: ");
+        try
+        {
+            askingPrice = decimal.Parse(Console.ReadLine());
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input format. Please enter a valid number.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
 
-       Console.Write("Enter ZIP: ");
-       int zip = int.Parse(Console.ReadLine());
+    Console.Write("Enter city: ");
+    string city = Console.ReadLine();
 
-       Console.WriteLine("Enter the expiration date (Year, Month, Day):");
-       Console.Write("Year: ");
-       int year = int.Parse(Console.ReadLine());
+    int? zip = null;
+    while (zip == null)
+    {
+        Console.Write("Enter ZIP: ");
+        try
+        {
+            zip = int.Parse(Console.ReadLine());
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input format. Please enter a valid number.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
 
-       Console.Write("Month: ");
-       int month = int.Parse(Console.ReadLine());
+    DateTime? expirationDate = null;
+    while (expirationDate == null)
+    {
+        try
+        {
+            Console.WriteLine("Enter the expiration date (Year, Month, Day):");
+            Console.Write("Year: ");
+            int year = int.Parse(Console.ReadLine());
 
-       Console.Write("Day: ");
-       int day = int.Parse(Console.ReadLine());
+            Console.Write("Month: ");
+            int month = int.Parse(Console.ReadLine());
 
-       DateTime expirationDate = new DateTime(year, month, day);
+            Console.Write("Day: ");
+            int day = int.Parse(Console.ReadLine());
 
-       Plant newPlant = new Plant
-       {
-              Species = species,
-              LightNeeds = lightNeeds,
-              AskingPrice = askingPrice,
-              City = city,
-              ZIP = zip,
-              Sold = false,
-              AvailableUntil = expirationDate
-       };
+            expirationDate = new DateTime(year, month, day);
+           
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Invalid input format. Please enter a valid number.");
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Console.WriteLine("Invalid date input. Please enter a valid date.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
 
-       plants.Add(newPlant);
+    try
+    {
+        Plant newPlant = new Plant
+        {
+            Species = species,
+            LightNeeds = lightNeeds.Value,
+            AskingPrice = askingPrice.Value,
+            City = city,
+            ZIP = zip.Value,
+            Sold = false,
+            AvailableUntil = expirationDate.Value
+        };
 
-       Console.Clear();
-       Console.WriteLine("Plant added successfully!");
+        plants.Add(newPlant);
 
-       Console.WriteLine("New Plant Details:");
-       Console.WriteLine($"Species: {newPlant.Species}");
-       Console.WriteLine($"Light Needs: {newPlant.LightNeeds}");
-       Console.WriteLine($"Asking Price: {newPlant.AskingPrice:C}");
-       Console.WriteLine($"City: {newPlant.City}");
-       Console.WriteLine($"ZIP: {newPlant.ZIP}");
-       Console.WriteLine($"Available Until: {newPlant.AvailableUntil.ToShortDateString()}");
+        Console.WriteLine("Plant added successfully!");
+        Console.WriteLine("New Plant Details:");
+        Console.WriteLine($"Species: {newPlant.Species}");
+        Console.WriteLine($"Light Needs: {newPlant.LightNeeds}");
+        Console.WriteLine($"Asking Price: {newPlant.AskingPrice:C}");
+        Console.WriteLine($"City: {newPlant.City}");
+        Console.WriteLine($"ZIP: {newPlant.ZIP}");
+        Console.WriteLine($"Available Until: {newPlant.AvailableUntil.ToShortDateString()}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred: {ex.Message}");
+    }
 
-       Console.WriteLine("\nPress any key to continue...");
-       Console.ReadKey();
-       Console.Clear();
+    Console.WriteLine("\nPress any key to continue...");
+    Console.ReadKey();
+    Console.Clear();
 }
 
 
